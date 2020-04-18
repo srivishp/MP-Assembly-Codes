@@ -1,0 +1,24 @@
+	LXI H,5000
+	MOV A,M
+	INX H
+	MOV B,M
+	MVI C,00	//Q
+	MVI D,00	//R
+LOOP:	MOV D,A
+	SUB B
+	JNC LOOP2
+	JMP LOOP3
+
+LOOP2: 	INR C
+	JMP LOOP
+	
+LOOP3: 
+	INX H
+	MOV M,C
+	INX H 
+	MOV M,D
+	HLT
+
+#org 5000
+#db 63,17
+	
