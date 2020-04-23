@@ -1,0 +1,29 @@
+ASSUME CS:CODE,DS: DATA
+DATA SEGMENT
+     NAME1 DB "<Enter a string here>$"
+DATA ENDS
+CODE SEGMENT
+START:	MOV AX, DATA
+	MOV DS, AX
+	LEA DI, NAME1
+	MOV BH, '$'
+	MOV DL, ' '
+	CLD
+ABC:	LODSB
+	SCASB
+	CMP AL, DL
+	JZ LOOP1
+	CMP AL,BH
+	JZ QUIT
+	INC DH
+	JMP ABC
+LOOP1:  INC CH
+	JMP SHORT ABC
+QUIT:
+	MOV AH,4CH
+	INT 21H
+CODE ENDS
+END START
+
+;Spaces are counted by CH
+;Characters are counted by DH
