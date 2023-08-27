@@ -1,0 +1,30 @@
+	   MVI A,00
+	   MVI C,63
+	   STA 3000
+
+LOOP1:	   CALL TIME
+	   LDA 3000
+	   ADI 01
+	   DAA
+	   STA 3000
+	   STA 3020
+	   ANI 0F
+	   OUT F1
+	   LDA 3020
+	   ANI F0
+	   RRC	//ROTATING ACCUMULATOR
+	   RRC
+	   RRC
+	   RRC
+	   OUT F0	//DISPLAYING OUTPUT IN I/O PORT
+	   DCR C
+	   JNZ LOOP1
+	   HLT
+
+TIME:	   LXI H,01
+
+LOOP2:	   DCX H
+	   MOV A,H
+	   ORA E
+	   JNZ LOOP2
+	   RET
